@@ -1,0 +1,4 @@
+{"message":"Request body is undefined","level":"info","service":"fintech-notiifcation-service"}
+{"message":"Request body is [object Object]","level":"info","service":"fintech-notiifcation-service"}
+{"service":"fintech-notiifcation-service","recipient":"yusufsaheedtaiwo@yahoo.com","content":"<h3>Zeed Tech</h3>Hello somebody, how are you doing today?","subject":"Fintech App","level":"info","message":"Request body is "}
+{"recipient":"yusufsaheedtaiwo@yahoo.com","content":"<h3>Zeed Tech</h3>Hello somebody, how are you doing today?","subject":"Fintech App","level":"info","message":"Request body is "}
