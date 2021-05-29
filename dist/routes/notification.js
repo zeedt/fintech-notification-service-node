@@ -4,25 +4,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const notification_model_1 = __importDefault(require("./../models/notification.model"));
 const logger_1 = __importDefault(require("./../config/logger"));
 const router = express_1.default.Router();
+const notification_service_impl_1 = __importDefault(require("./../service/impl/notification.service.impl"));
 exports.default = router.post('/send-email', (req, res) => {
     logger_1.default.info(`Request body is `, req.body);
-    notification_model_1.default.create(req.body)
-        .then(data => {
-        const msg = {
-            to: req.body.recipients,
-            from: 'yusufsaheedtaiwo@gmail.com',
-            subject: req.body.subject,
-            text: 'and easy to do anywhere, even with Node.js',
-            html: req.body.content,
-        };
-        res.send(data);
-    })
-        .catch(err => {
+    try {
+        notification_service_impl_1.default.sendEmail(req.body);
+        res.send();
+    }
+    catch (error) {
         res.status(500)
-            .send({ message: err.message });
-    });
+            .send({ message: error.message });
+    }
 });
 //# sourceMappingURL=notification.js.map
