@@ -4,16 +4,24 @@ import { SendGridNotificationRequest, EmailDetails } from "./../../dto/sendgrid.
 import logger from "./../../config/logger";
 import Notification from './../../models/notification.model';
 import axios from "axios";
+import { InfobipSMSRequest, MessageItem, DestinationItem } from "./../../dto/infobip.notification.request";
 
 const SENDGRID_BASE_URL = 'https://api.sendgrid.com/v3/mail/send';
-const SENDGRID_BEARER_TOKEN = process.env.SENDGRID_TOKEN
+const INFOBIP_BASE_URL = 'https://zjr41x.api.infobip.com/sms/2/text/advanced';
+const SENDGRID_BEARER_TOKEN = process.env.SENDGRID_TOKEN;
+const INFOBIP_USERNAME = process.env.INFOBIP_USERNAME;
+const INFOBIP_PASSWORD = process.env.INFOBIP_PASSWORD;
+const INFOBIP_DEFAULT_FROM = 'FINTECH';
 
+const buff = new Buffer(`${INFOBIP_USERNAME}:${INFOBIP_PASSWORD}`);
+const INFOBIP_BASIC_CODED_STRING = buff.toString('base64');
  class NotificationServiceImpl implements NotificationService {
 
     constructor() {
         logger.info("Notification Service instantiated");
     }
     sendEmail = (notification: notificationModel) : void => {
+        notification.isEmail = true;
         Notification.create(notification)
     .then(data => {
         this.sendEmailViaSendGrid(data);
@@ -43,7 +51,6 @@ const SENDGRID_BEARER_TOKEN = process.env.SENDGRID_TOKEN
         })
     }
 
-
     createEmailObjectFromNotification = (notification : notificationModel) : SendGridNotificationRequest => {
         const toEmail : EmailDetails = {
             email : notification.recipient,
@@ -67,6 +74,50 @@ const SENDGRID_BEARER_TOKEN = process.env.SENDGRID_TOKEN
         ]
     };
     }
+
+
+    sendSms = (notification: notificationModel) : void => {
+        notification.isEmail = false;
+        Notification.create(notification)
+        .then(data => {
+        this.sendSmsViaInfobip(data);
+    }).catch(err => {
+        throw new Error(err);
+    })
+    }
+
+    sendSmsViaInfobip = (notification: notificationModel) : void => {
+        const request : InfobipSMSRequest = {
+            messages : [
+                {
+                    from : INFOBIP_DEFAULT_FROM,
+                    destinations : [
+                        {to : notification.recipient}
+                    ],
+                    text : notification.content
+                }
+            ]
+        }
+
+        axios({
+            method: 'post',
+            url: INFOBIP_BASE_URL,
+            data: request,
+            headers : {
+                'Content-Type': 'application/json',
+                'Authorization' : `Basic ${INFOBIP_BASIC_CODED_STRING}`
+            }
+        }).then((response)=> {
+            logger.info("SMS Call successful ");
+            logger.info("Notification: ",notification);
+            notification.notificationSent = true;
+            Notification.update({notificationSent:true},{ where: { id: notification.id } });
+            // logger.info("Response is ", response);
+        }).catch((err)=>{
+            logger.error("Error occurred while sending SMS via infobip due to ", err);
+        })
+
+    };
 
 }
 
