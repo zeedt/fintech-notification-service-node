@@ -16,7 +16,7 @@ const SENDGRID_BEARER_TOKEN = process.env.SENDGRID_TOKEN
     sendEmail = (notification: notificationModel) : void => {
         Notification.create(notification)
     .then(data => {
-        this.sendEmailViaSendGrid(notification);
+        this.sendEmailViaSendGrid(data);
     }).catch(err => {
         throw new Error(err);
     })
@@ -34,6 +34,9 @@ const SENDGRID_BEARER_TOKEN = process.env.SENDGRID_TOKEN
             }
         }).then((response)=> {
             logger.info("Call successful");
+            logger.info("Notification: ",notification);
+            notification.notificationSent = true;
+            Notification.update({notificationSent:true},{ where: { id: notification.id } });
             // logger.info("Response is ", response);
         }).catch((err)=>{
             logger.error("Error occurred while sending mail via sendgrid due to ", err);

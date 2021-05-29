@@ -12,3 +12,23 @@
 {"message":"Notification Service instantiated","level":"info"}
 {"recipient":"yusufsaheedtaiwo@yahoo.com","content":"<h3>Zeed Tech</h3>Hello somebody, how are you doing today?","subject":"Integration Test","level":"info","message":"Request body is "}
 {"message":"Call successful","level":"info"}
+{"message":"Notification Service instantiated","level":"info"}
+{"recipient":"yusufsaheedtaiwo@yahoo.com","content":"<h3>Zeed Tech</h3>Hello somebody, how are you doing today?","subject":"Integration Test2","level":"info","message":"Request body is "}
+{"message":"Call successful","level":"info"}
+{"message":"Notification Service instantiated","level":"info"}
+{"recipient":"yusufsaheedtaiwo@yahoo.com","content":"<h3>Zeed Tech</h3>Hello somebody, how are you doing today?","subject":"Zeedor Test2","level":"info","message":"Request body is "}
+{"message":"Call successful","level":"info"}
+{"level":"error","message":"Error occurred while sending mail via sendgrid due to  notification.save is not a function","stack":"TypeError: notification.save is not a function\n    at /Users/zeed/express-projects/fintech-notification-service/dist/service/impl/notification.service.impl.js:34:30\n    at processTicksAndRejections (node:internal/process/task_queues:94:5)"}
+{"message":"Notification Service instantiated","level":"info"}
+{"recipient":"yusufsaheedtaiwo@yahoo.com","content":"<h3>Zeed Tech</h3>Hello somebody, how are you doing today?","subject":"Zeedor Test3","level":"info","message":"Request body is "}
+{"message":"Call successful","level":"info"}
+{"message":"Notification Service instantiated","level":"info"}
+{"recipient":"yusufsaheedtaiwo@yahoo.com","content":"<h3>Zeed Tech</h3>Hello somebody, how are you doing today?","subject":"Zeedor Test3","level":"info","message":"Request body is "}
+{"message":"Call successful","level":"info"}
+{"message":"Notification Service instantiated","level":"info"}
+{"recipient":"yusufsaheedtaiwo@yahoo.com","content":"<h3>Zeed Tech</h3>Hello somebody, how are you doing today?","subject":"Zeedor Test3","level":"info","message":"Request body is "}
+{"message":"Call successful","level":"info"}
+{"message":"Notification Service instantiated","level":"info"}
+{"recipient":"yusufsaheedtaiwo@yahoo.com","content":"<h3>Zeed Tech</h3>Hello somebody, how are you doing today?","subject":"Zeedor Test3","level":"info","message":"Request body is "}
+{"message":"Call successful","level":"info"}
+{"dataValues":{"isEmail":false,"notificationSent":false,"id":5,"recipient":"yusufsaheedtaiwo@yahoo.com","content":"<h3>Zeed Tech</h3>Hello somebody, how are you doing today?","subject":"Zeedor Test3","updatedAt":"2021-05-29T17:22:25.064Z","createdAt":"2021-05-29T17:22:25.064Z","cc":null,"username":null},"_previousDataValues":{"recipient":"yusufsaheedtaiwo@yahoo.com","content":"<h3>Zeed Tech</h3>Hello somebody, how are you doing today?","subject":"Zeedor Test3","id":5,"cc":null,"isEmail":false,"username":null,"notificationSent":false,"createdAt":"2021-05-29T17:22:25.064Z","updatedAt":"2021-05-29T17:22:25.064Z"},"_changed":{},"_options":{"isNewRecord":true,"_schema":null,"_schemaDelimiter":""},"isNewRecord":false,"level":"info","message":"Notification: "}

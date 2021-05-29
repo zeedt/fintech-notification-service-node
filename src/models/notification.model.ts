@@ -1,4 +1,4 @@
-import { Column, DataType, NotNull, Table, Model, AllowNull, IsUUID } from "sequelize-typescript";
+import { Column, DataType, NotNull, Table, Model, AllowNull, IsUUID, Default } from "sequelize-typescript";
 import { UUID } from "sequelize/types";
 
 @Table({tableName:'notification'})
@@ -18,7 +18,15 @@ export default class Notification extends Model {
     @Column(DataType.TEXT)
     cc : string;
 
+    @Default(false)
     @Column
     isEmail : boolean;
+
+    @Column
+    username : string
+
+    @Default(false)
+    @Column
+    notificationSent : boolean;
 
 }
