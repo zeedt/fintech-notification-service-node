@@ -7,7 +7,7 @@ const DB = process.env.DB_NAME || 'fintech_notification';
 const DIALECT = "postgres"
 const USER = process.env.DB_USER || 'postgres';
 
-export default new Sequelize(DB,USER , PASSWORD,
+export default new Sequelize(DB,USER ,PASSWORD,
         {modelPaths : ['./../models'],
          dialect : DIALECT,
          host : HOST,
