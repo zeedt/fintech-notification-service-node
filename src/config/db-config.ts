@@ -18,7 +18,8 @@ export default new Sequelize(DB,USER , PASSWORD,
           searchPath : 'public'
          },
          dialectOptions : {
-           require : true,
+           ssl : {require : true,
            rejectUnauthorized :false
+           }
          }
         });
