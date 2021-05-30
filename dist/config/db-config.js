@@ -11,9 +11,15 @@ exports.default = new sequelize_typescript_1.Sequelize(DB, USER, PASSWORD, { mod
     dialect: DIALECT,
     host: HOST,
     port: PORT,
+    ssl: true,
     sync: {
         schema: 'public',
         searchPath: 'public'
+    },
+    dialectOptions: {
+        ssl: { require: true,
+            rejectUnauthorized: false
+        }
     }
 });
 //# sourceMappingURL=db-config.js.map

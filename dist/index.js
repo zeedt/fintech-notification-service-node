@@ -12,7 +12,7 @@ const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const cron_1 = __importDefault(require("./config/cron"));
 const notification_job_1 = __importDefault(require("./jobs/notification.job"));
 const app = express_1.default();
-const port = 3000; // default port to listen
+const port = process.env.PORT || 3000; // default port to listen
 const task = cron_1.default.schedule('0 * * * *', () => {
     logger_1.default.info('Starting task');
     notification_job_1.default.runNotificationJob();

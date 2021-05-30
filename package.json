@@ -6,7 +6,9 @@
   "scripts": {
     "start": "node dist/index.js",
     "build": "tsc",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
+    "prestart": "npm run build"
   },
   "dependencies": {
     "@sendgrid/mail": "^7.4.4",
