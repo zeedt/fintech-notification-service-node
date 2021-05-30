@@ -12,6 +12,7 @@ export default new Sequelize(DB,USER , PASSWORD,
          dialect : DIALECT,
          host : HOST,
          port : PORT,
+         ssl : true,
          sync : {
           schema : 'public',
           searchPath : 'public'
