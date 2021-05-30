@@ -16,5 +16,9 @@ export default new Sequelize(DB,USER , PASSWORD,
          sync : {
           schema : 'public',
           searchPath : 'public'
+         },
+         dialectOptions : {
+           require : true,
+           rejectUnauthorized :false
          }
         });
