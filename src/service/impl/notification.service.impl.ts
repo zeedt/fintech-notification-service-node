@@ -30,25 +30,24 @@ const INFOBIP_BASIC_CODED_STRING = buff.toString('base64');
     })
     }
 
-    sendEmailViaSendGrid = (notification: notificationModel) : void => {
+    sendEmailViaSendGrid = async (notification: notificationModel) : Promise<void> => {
         const request : SendGridNotificationRequest = this.createEmailObjectFromNotification(notification);
-        axios({
-            method: 'post',
-            url: SENDGRID_BASE_URL,
-            data: request,
-            headers : {
-                'Content-Type': 'application/json',
-                'Authorization' : `Bearer ${SENDGRID_BEARER_TOKEN}`
-            }
-        }).then((response)=> {
+        try {
+            const notificationResponse = await axios({
+                method: 'post',
+                url: SENDGRID_BASE_URL,
+                data: request,
+                headers : {
+                    'Content-Type': 'application/json',
+                    'Authorization' : `Bearer ${SENDGRID_BEARER_TOKEN}`
+                }
+            });
             logger.info("Call successful");
-            logger.info("Notification: ",notification);
-            notification.notificationSent = true;
             Notification.update({notificationSent:true},{ where: { id: notification.id } });
-            // logger.info("Response is ", response);
-        }).catch((err)=>{
+        } catch (err) {
             logger.error("Error occurred while sending mail via sendgrid due to ", err);
-        })
+            throw new Error(err);
+        }
     }
 
     createEmailObjectFromNotification = (notification : notificationModel) : SendGridNotificationRequest => {
@@ -86,7 +85,7 @@ const INFOBIP_BASIC_CODED_STRING = buff.toString('base64');
     })
     }
 
-    sendSmsViaInfobip = (notification: notificationModel) : void => {
+    sendSmsViaInfobip = async (notification: notificationModel) : Promise<void> => {
         const request : InfobipSMSRequest = {
             messages : [
                 {
@@ -98,25 +97,23 @@ const INFOBIP_BASIC_CODED_STRING = buff.toString('base64');
                 }
             ]
         }
-
-        axios({
-            method: 'post',
-            url: INFOBIP_BASE_URL,
-            data: request,
-            headers : {
-                'Content-Type': 'application/json',
-                'Authorization' : `Basic ${INFOBIP_BASIC_CODED_STRING}`
-            }
-        }).then((response)=> {
+        try {
+            const response = await axios({
+                method: 'post',
+                url: INFOBIP_BASE_URL,
+                data: request,
+                headers : {
+                    'Content-Type': 'application/json',
+                    'Authorization' : `Basic ${INFOBIP_BASIC_CODED_STRING}`
+                }
+            });
             logger.info("SMS Call successful ");
-            logger.info("Notification: ",notification);
             notification.notificationSent = true;
             Notification.update({notificationSent:true},{ where: { id: notification.id } });
-            // logger.info("Response is ", response);
-        }).catch((err)=>{
+        } catch(err) {
             logger.error("Error occurred while sending SMS via infobip due to ", err);
-        })
-
+            throw new Error(err);
+        }
     };
 
 }
